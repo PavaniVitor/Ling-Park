@@ -1,7 +1,7 @@
 from app import db
 
 
-class User(db.model):
+class User(db.Model):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer , primary_key=True)
@@ -10,7 +10,7 @@ class User(db.model):
     car_plate = db.Column(db.String)
     email = db.Column(db.String , unique = True)
 
-    def __init__ (self, username, password , car_plate , email)
+    def __init__ (self, username, password , car_plate , email):
         self.username = username
         self.password = password
         self.car_plate = car_plate
@@ -27,10 +27,10 @@ class Post(db.Model):
     user_id = db.Column(db.Integer , db.ForeignKey('users.id'))
     owner = db.relationship('User' , foreign_keys = user_id)
 
-    def __init__(self, content , user_id)
+    def __init__(self, content , user_id):
         self.content = content
         self.user_id = user_id
 
     def __repr__(self):
         return '<Post %r>' % self.id
-
+ 
