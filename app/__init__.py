@@ -14,4 +14,7 @@ migrate = Migrate(app,db)
 manager = Manager(app)
 manager.add_command('db' , MigrateCommand)
 
+
+#importe aqui os controllers para as paginas
 from app.controllers import default
+from app.controllers import teste
