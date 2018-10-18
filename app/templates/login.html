@@ -1,7 +1,17 @@
-<h1>Ling - Park v0</h1>
+{% block content %}
 
-<form action="/echo_login" method="POST">
-<p>Nome:  <input name="name"></p> 
-<p>Senha: <input name="password"></p>
-<input type="submit" value="Login">
+
+<form action="/login" method = "POST">
+    {{ login_form.csrf_token }}
+    Nome de usuario: <br>
+    {{ login_form.username() }}<br>
+    Senha:<br>
+    {{ login_form.password() }}<br>
+     lembrar me:  {{ login_form.remember_me() }}
+
+    <br>
+    <input type="submit" value="Entrar">
+    <br>
 </form>
+
+{% endblock %}

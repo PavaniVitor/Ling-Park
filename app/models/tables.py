@@ -19,10 +19,10 @@ class User(db.Model):
         return True
     
     @property
-    def is_anonymous(self)
+    def is_anonymous(self):
         return True
     
-    def get_id(self)
+    def get_id(self):
         return str(self.id)
 
     def __init__ (self, username, password , car_plate , email):
