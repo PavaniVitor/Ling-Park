@@ -1,16 +1,14 @@
-from flask import render_template, request
-from app import app
+from flask import render_template, request, redirect, url_for , flash
+from app import app, login_manager
 from app import db
 from app.models.tables import User, Post
+from app.models.forms import LoginForm
+from flask_login import login_user , current_user , logout_user
 
 
-#exemplo de arquivo de controller!
-
-@app.route('/teste')
-def echo_teste():
-    print(logged_user)
-    return 'ola denovo!'
-
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 @app.route('/users')
 def echo_view_users():
@@ -19,28 +17,34 @@ def echo_view_users():
     print(users[0].username)
     return render_template('users.html' , users = users)
 
-@app.route('/login')
+@app.route('/login' , methods = ['POST' , 'GET'])
 def login():
-    return render_template('login.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('echo_logado'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username = form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('echo_logado'))
+        print(form.username.data)
+        print(form.password.data)
+        print(form.remember_me.data)
+    return render_template('login.html', login_form = form)
 
-@app.route('/echo_login' , methods = ['POST' , 'GET'])
-def login_echo():
-    user_name = request.form['name']
-    user_password = request.form['password']
-
-    logged_user = User.query.filter_by(username = user_name).first()
-    print(logged_user)
-    if (logged_user != None):#checa se o usuario existe no banco de dados
-        return 'eaeae   ' + str(logged_user.username) 
+@app.route('/logado')
+def echo_logado():
+    print(current_user.is_authenticated)
+    print(current_user)
+    if current_user.is_authenticated:
+        return 'você esta logado!'
     else:
-        return 'errrrrrrowwwwwwwwww' # vai pra pagina de erro no login
+        return 'você não esta logado!'
 
-
-@app.route('/posts' , methods = ['POST' , 'GET'])
-def posts():
-    if request.method == 'POST':
-        print('post')
-        #posta a mensagem
-    return 
-    
-    #mostra as mensagens do banco 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))   #   para usar essa função, chame o metodo que esta 
+                                        #   decorando a rota que vc deseja mandar o usuario
