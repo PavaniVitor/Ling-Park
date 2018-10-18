@@ -35,7 +35,7 @@ class User(db.Model):
 
     def __init__ (self, username, password , car_plate , email):
         self.username = username
-        self.password = set_password(password)
+        self.password = generate_password_hash(password)
         self.car_plate = car_plate
         self.email = email
     
