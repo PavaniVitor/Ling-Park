@@ -1,13 +1,13 @@
 {% block content %}
 
 
-<form action="/login" method = "POST">   #O código só tem o direcionamento de cada informação
-    {{ form_login.csrf_token }}          #Falta a parte do template em si pra preencher 
+<form action="/login" method = "POST">
+    {{ login_form.csrf_token }}
     Nome de usuario: <br>
-    {{ form_login.username() }}<br>
+    {{ login_form.username() }}<br>
     Senha:<br>
-    {{ form_login.password() }}<br>
-     lembrar me:  {{ form_login.remember_me() }}
+    {{ login_form.password() }}<br>
+     lembrar me:  {{ login_form.remember_me() }}
 
     <br>
     <input type="submit" value="Entrar">
