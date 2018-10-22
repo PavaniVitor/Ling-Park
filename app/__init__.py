@@ -19,4 +19,4 @@ login_manager = LoginManager(app)
 
 #importe aqui os controllers para as paginas
 from app.controllers import default
-from app.controllers import teste
+from app.controllers import log_reg

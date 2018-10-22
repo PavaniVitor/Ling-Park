@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for , flash
 from app import app, login_manager
 from app import db
 from app.models.tables import User, Post
-from app.models.forms import LoginForm
+from app.models.forms import LoginForm, RegForm
 from flask_login import login_user , current_user , logout_user
 
 
@@ -29,22 +29,34 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('echo_logado'))
-        print(form.username.data)
-        print(form.password.data)
-        print(form.remember_me.data)
+       
     return render_template('login.html', login_form = form)
+
 
 @app.route('/logado')
 def echo_logado():
-    print(current_user.is_authenticated)
-    print(current_user)
-    if current_user.is_authenticated:
-        return 'você esta logado!'
-    else:
-        return 'você não esta logado!'
+    flash('Você já está logado!')
+    return render_template('home.html')
+
 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))   #   para usar essa função, chame o metodo que esta 
                                         #   decorando a rota que vc deseja mandar o usuario
+
+
+@app.route('/cadastro' , methods = ['POST' , 'GET'])
+def cadastro():
+    if current_user.is_authenticated:
+        return redirect(url_for('echo_logado'))
+    
+    form = RegForm()
+    
+    if form.validate_on_submit():
+        #substituir pelo form certo
+        user = User(form.username.data, form.password.data , form.car_plate.data , form.email.data)
+        db.session.add(user)
+        db.session.commit()
+    
+    return render_template('register.html' , form=form)
