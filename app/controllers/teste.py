@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for , flash
 from app import app, login_manager
 from app import db
 from app.models.tables import User, Post
-from app.models.forms import LoginForm
+from app.models.forms import login_form
 from flask_login import login_user , current_user , logout_user
 
 
@@ -18,10 +18,10 @@ def echo_view_users():
     return render_template('users.html' , users = users)
 
 @app.route('/login' , methods = ['POST' , 'GET'])
-def login():
+def login2():
     if current_user.is_authenticated:
         return redirect(url_for('echo_logado'))
-    form = LoginForm()
+    form = login_form()
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
         if user is None or not user.check_password(form.password.data):
