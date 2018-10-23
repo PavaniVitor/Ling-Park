@@ -5,4 +5,4 @@ from app.models.tables import User, Post
 
 @app.route('/')
 def echo1():
-    return 'ola mundo!'
+    return render_template('index.html')  #Esse html deve ter o botão pra login e o botão pra cadastro
