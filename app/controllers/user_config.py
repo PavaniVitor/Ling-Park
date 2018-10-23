@@ -7,4 +7,4 @@ from flask_login import login_required
 @login_required
 @app.route('/config')
 def config():
-    return render_template('config.html')
+    return render_template('preferences.html')
