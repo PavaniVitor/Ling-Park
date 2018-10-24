@@ -19,11 +19,17 @@ def home():
     #adicionar logica para buscar os usuarios que fizeram o post no banco
 
     form = PostForm(request.form)
+    return render_template('home.html' , posts=lista_posts, form = form, num = n)
+
+@app.route('/echo', methods=['POST', 'GET'])
+def echo_post():
+    form = PostForm(request.form)
+    user=current_user
     if request.method == 'POST' :
         print('alou')
         #publica o post
         post = Post(form.content.data, user.id)
         db.session.add(post)
         db.session.commit()
+    return(redirect(url_for('home')))
 
-    return render_template('home.html' , posts=lista_posts, form = form, num = n)

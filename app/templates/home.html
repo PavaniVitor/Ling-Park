@@ -29,7 +29,7 @@
         <h1>Home</h1>
         </main>
 {% block content %}
-<form action="/home" method="POST">
+<form action="/echo" method="POST">
     {{form.content.label}}<br>
     {{ form.content(size=32) }}<br>
     <br>
