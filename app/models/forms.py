@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms import PasswordField
-from wtforms import BooleanField
-from wtforms.validators import DataRequired , ValidationError, EqualTo, Email
+from wtforms import StringField, PasswordField, BooleanField, TextAreaField
+from wtforms import SubmitField
+from wtforms.validators import DataRequired , ValidationError, EqualTo, Email, Length
 from app.models.tables import User
 
 
@@ -18,8 +17,7 @@ class RegForm(FlaskForm):
     password2 = PasswordField('Repita a senha', validators=[DataRequired(), EqualTo('password')])
     car_plate = StringField('Placa do carro') 
 
-    #def validate_carplate(self, car_plate):    A ideia é que os 3 primeiros elementos da string sejam
-    #    plate =                                letras e os 4 ultimos sejam numeros
+#    def validate_carplate(self, car_plate):                            
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -32,7 +30,5 @@ class RegForm(FlaskForm):
             raise ValidationError('Email já registrado. Por favor, tente outro!')
 
 
-class Post(FlaskForm):
-    user = StringField(LoginForm.username)
-    text = StringField('Digite sua mensagem')
-    status = forms.ChoiceField('Qual o status de sua mensagem?', choices=[], required=False)
+class PostForm(FlaskForm):
+    text = TextAreaField('Digite aqui sua mensagem', validators=[DataRequired(), Length(min=1, max=500)])

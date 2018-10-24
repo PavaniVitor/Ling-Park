@@ -51,8 +51,7 @@ def cadastro():
         return redirect(url_for('echo_logado'))
     form = RegForm()
     if form.validate_on_submit():
-        user = User(RegForm.username.data, RegForm.password.data , RegForm.car_plate.data , RegForm.email.data)
+        user = User(RegForm.username, RegForm.password , RegForm.car_plate , RegForm.email)
         db.session.add(user)
         db.session.commit()
-    
     return render_template('register.html' , form=form)
