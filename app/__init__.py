@@ -16,8 +16,10 @@ manager = Manager(app)
 manager.add_command('db' , MigrateCommand)
 
 login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
 #importe aqui os controllers para as paginas
 from app.controllers import default
 from app.controllers import log_reg
 from app.controllers import home
+from app.controllers import user_config
