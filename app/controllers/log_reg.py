@@ -45,13 +45,13 @@ def logout():
                                         #   decorando a rota que vc deseja mandar o usuario
 
 
-@app.route('/cadastro' , methods = ['POST' , 'GET'])
+@app.route('/cadastro' , methods = ['GET' , 'POST'])
 def cadastro():
+    form = RegForm(request.form)
     if current_user.is_authenticated:
         return redirect(url_for('echo_logado'))
-    form = RegForm()
     if form.validate_on_submit():
-        user = User(RegForm.username, RegForm.password , RegForm.car_plate , RegForm.email)
+        user = User(form.username.data, form.password.data , form.car_plate.data , form.email.data)
         db.session.add(user)
         db.session.commit()
     return render_template('register.html' , form=form)
