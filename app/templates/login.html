@@ -1,17 +1,50 @@
-{% block content %}
+<!doctype html>
+<form action="/login" method = "POST"></form>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>CT-Park</title>
+    <link rel="icon" href="{{url_for('static', filename = 'favicon.ico')}}">
+    <!-- Bootstrap core CSS -->
+    <link href= "{{url_for('static', filename = 'css/bootstrap.min.css' ) }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='css/cover.css' ) }}">
 
-<form action="/login" method = "POST">
-    {{ login_form.csrf_token }}
-    Nome de usuario: <br>
-    {{ login_form.username() }}<br>
-    Senha:<br>
-    {{ login_form.password() }}<br>
-     lembrar me:  {{ login_form.remember_me() }}
+  </head>
 
-    <br>
-    <input type="submit" value="Entrar">
-    <br>
+    <body class="text-center">
+            <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+              <header class="masthead mb-auto">
+                <div class="inner">
+                  <h1 class="masthead-brand">CT-Park</h1>
+                </div>
+              </header>
+              
+      <main role="main" class="inner cover">
+            {% block content %}  
+             {{ login_form.csrf_token }}
+             Nome de usuario: <br>
+             {{ login_form.username() }}<br>
+             Senha:<br>
+             {{ login_form.password() }}<br>
+             lembrar me:  {{ login_form.remember_me() }}
+            {% endblock %}
+            <br>
+            <input type="submit" value="Entrar">
+            <br>
+        </main>
+        
+      <footer class="mastfoot mt-auto">
+            <div class="inner">
+            </div>
+          </footer>
+        </div>
+    
+</body>
 </form>
+</html>
 
-{% endblock %}
