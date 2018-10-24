@@ -10,7 +10,11 @@ from flask_login import login_user , current_user , logout_user , login_required
 def home():
     lista_posts = Post.query.order_by(Post.id).all()
     lista_posts.reverse()
-
+    n = 0
+    if len(lista_posts) > 20 :
+        n = 20
+    else:
+        n = len(lista_posts)
     user = current_user
     #adicionar logica para buscar os usuarios que fizeram o post no banco
 
@@ -22,7 +26,4 @@ def home():
         db.session.add(post)
         db.session.commit()
 
-    return render_template('home.html' , posts=lista_posts, form = form)
-
-
-    
+    return render_template('home.html' , posts=lista_posts, form = form, num = n)

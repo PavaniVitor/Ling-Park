@@ -1,23 +1,56 @@
-{% block content %}
-<h3> Home </h3>
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>CT-Park</title>
+    <link rel="icon" href="{{url_for('static', filename = 'favicon.ico')}}">
+    <!-- Bootstrap core CSS -->
+    <link href= "{{url_for('static', filename = 'css/bootstrap.min.css' ) }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='css/cover.css' ) }}">
+
+
+  </head>
+  <body class="text-center">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+          <header class="masthead mb-auto">
+            <div class="inner">
+              <h1 class="masthead-brand">CT-Park</h1>
+              <nav class="nav nav-masthead justify-content-center">
+                  <a class="nav-link active" href="/logout">Sair</a>
+                </nav>
+            </div>
+          </header>
+   <main role="main" class="inner cover">
+        <h1>Home</h1>
+        </main>
+{% block content %}
 <form action="/home" method="POST">
-<p>
     {{form.content.label}}<br>
     {{ form.content(size=32) }}<br>
     <br>
-    <input type="submit" value="Enviar">
+    <button type="submit" class="btn btn-outline-secondary">Postar</button>
     <br>
-<p>
-
 </form>
 <!-- inicio da lista de posts -->
 <ul>
-    {% for i in range(20) %}
+    {% for i in range(num) %}
     <h3>{{ posts[i].owner.username }} : {{ posts[i].content }}</h3>
     <h5>  {{ posts[i].date }} </h5>
     {% endfor %}
+    {% endblock %}
 </ul>
-        
+<footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p class="mt-5 mb-3 text-muted">&copy; 2018-LingProg</p>            </div>
+      </footer>
+    </div>
 
-{% endblock %}
+</body>
+</html>
+
+
