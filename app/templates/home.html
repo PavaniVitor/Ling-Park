@@ -38,10 +38,12 @@
 </form>
 <!-- inicio da lista de posts -->
 <ul>
+    <main role="main" class="inner cover">
     {% for i in range(num) %}
     <h3>{{ posts[i].owner.username }} : {{ posts[i].content }}</h3>
     <h5>  {{ posts[i].date }} </h5>
     {% endfor %}
+    </main>
     {% endblock %}
 </ul>
 <footer class="mastfoot mt-auto">
