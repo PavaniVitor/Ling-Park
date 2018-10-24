@@ -44,7 +44,7 @@ def logout():
 def cadastro():
     form = RegForm(request.form)
     if current_user.is_authenticated:
-        return redirect(url_for('echo_logado'))
+        return redirect(url_for('home'))
     if form.validate_on_submit():
         user = User(form.username.data, form.password.data , form.car_plate.data , form.email.data)
         db.session.add(user)
