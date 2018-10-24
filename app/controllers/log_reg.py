@@ -12,20 +12,19 @@ def load_user(id):
 
 @app.route('/users')
 def echo_view_users():
-#users recebe uma lista com todos os usuarios do banco de dados e ordena eles pelo username
     users = User.query.order_by(User.username).all()
     print(users[0].username)
     return render_template('users.html' , users = users)
 
 @app.route('/login' , methods = ['POST' , 'GET'])
 def login():
+    form = LoginForm()
     if current_user.is_authenticated:
         return redirect(url_for('echo_logado'))
-    form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('Usuário e senha incorretos. Tente novamente.')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('echo_logado'))
@@ -46,17 +45,13 @@ def logout():
                                         #   decorando a rota que vc deseja mandar o usuario
 
 
-@app.route('/cadastro' , methods = ['POST' , 'GET'])
+@app.route('/cadastro' , methods = ['GET' , 'POST'])
 def cadastro():
+    form = RegForm(request.form)
     if current_user.is_authenticated:
         return redirect(url_for('echo_logado'))
-    
-    form = RegForm()
-    
     if form.validate_on_submit():
-        #substituir pelo form certo
         user = User(form.username.data, form.password.data , form.car_plate.data , form.email.data)
         db.session.add(user)
         db.session.commit()
-    
     return render_template('register.html' , form=form)

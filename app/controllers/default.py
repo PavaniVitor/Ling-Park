@@ -5,4 +5,4 @@ from app.models.tables import User, Post
 
 @app.route('/')
 def echo1():
-    return render_template('index.html')
+    return render_template('index.html') 
