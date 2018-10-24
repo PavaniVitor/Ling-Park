@@ -20,22 +20,17 @@ def echo_view_users():
 def login():
     form = LoginForm()
     if current_user.is_authenticated:
-        return redirect(url_for('echo_logado'))
+        return redirect(url_for('home'))
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Usuário e senha incorretos. Tente novamente.')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('echo_logado'))
+        return redirect(url_for('login'))
        
     return render_template('login.html', login_form = form)
 
-
-@app.route('/logado')
-def echo_logado():
-    flash('Você já está logado!')
-    return render_template('home.html')
 
 
 @app.route('/logout')
