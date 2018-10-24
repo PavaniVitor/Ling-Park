@@ -1,29 +1,34 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms import PasswordField
-from wtforms import BooleanField
-from wtforms.validators import DataRequired , ValidationError, EqualTo, Email
+from wtforms import StringField, PasswordField, BooleanField, TextAreaField
+from wtforms import SubmitField
+from wtforms.validators import DataRequired , ValidationError, EqualTo, Email, Length
 from app.models.tables import User
 
 
 class LoginForm(FlaskForm):
-    username = StringField('username' , validators=[DataRequired()])
-    password = PasswordField('password' , validators=[DataRequired()])
-    remember_me = BooleanField('remember_me')
+    username = StringField('Usuário' , validators=[DataRequired()])
+    password = PasswordField('Senha' , validators=[DataRequired()])
+    remember_me = BooleanField('Lembre de mim')
 
 class RegForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
+    username = StringField('Usuário', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    car_plate = StringField('Placa do carro') #adicionar  metodovalidador para a placa validate_car_plate
+    password = PasswordField('Senha', validators=[DataRequired()])
+    password2 = PasswordField('Repita a senha', validators=[DataRequired(), EqualTo('password')])
+    car_plate = StringField('Placa do carro') 
+
+#    def validate_carplate(self, car_plate):                            
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Please use a different username.')
+            raise ValidationError('Usuário já existe. Por favor, tente outro!')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError('Please use a different email address.')
+            raise ValidationError('Email já registrado. Por favor, tente outro!')
+
+
+class PostForm(FlaskForm):
+    text = TextAreaField('Digite aqui sua mensagem', validators=[DataRequired(), Length(min=1, max=500)])
