@@ -1,17 +1,58 @@
-{% block content %}
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CT-Park</title>
+    <link rel="icon" href="{{url_for('static', filename = 'favicon.ico')}}">
+    <!-- Bootstrap core CSS -->
+    <link href= "{{url_for('static', filename = 'css/bootstrap.min.css' ) }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='css/cover.css' ) }}">
 
 
-<form action="/login" method = "POST">
-    {{ login_form.csrf_token }}
-    Nome de usuario: <br>
-    {{ login_form.username() }}<br>
-    Senha:<br>
-    {{ login_form.password() }}<br>
-     Lembrar me:  {{ login_form.remember_me() }}
+  </head>
 
-    <br>
-    <input type="submit" value="Entrar">
-    <br>
-</form>
 
-{% endblock %}
+    <body class="text-center">
+            <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+              <header class="masthead mb-auto">
+                <div class="inner">
+                  <h1 class="masthead-brand">CT-Park</h1>
+                  <nav class="nav nav-masthead justify-content-center">
+                      <a class="nav-link active" href="/cadastro">Cadastrar-se</a>
+                      <a class="nav-link" href="/">Página Inicial</a>
+                    </nav>
+                </div>
+              </header>
+              
+      <main role="main" class="inner cover">
+          <h1>Login</h1>
+          <img src="{{url_for('static', filename='car.png')}}">
+        </main>
+        {% block content %}  
+            <form action="/login" method = "POST">
+             {{ login_form.csrf_token }}
+             Nome de usuario: <br>
+             {{ login_form.username() }}<br>
+             Senha:<br>
+             {{ login_form.password() }}<br>
+             Lembrar-me:  {{ login_form.remember_me() }}
+             <br>
+             <button type="submit" class="btn btn-outline-secondary">Logar</button>
+            </form>
+           {% endblock %}
+           
+
+      <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p class="mt-5 mb-3 text-muted">&copy; 2018-LingProg</p>            </div>
+          </footer>
+        </div>
+    
+</body>
+</html>
+
