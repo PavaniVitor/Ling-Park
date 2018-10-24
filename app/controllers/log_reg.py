@@ -18,9 +18,9 @@ def echo_view_users():
 
 @app.route('/login' , methods = ['POST' , 'GET'])
 def login():
+    form = LoginForm()
     if current_user.is_authenticated:
         return redirect(url_for('echo_logado'))
-    form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
         if user is None or not user.check_password(form.password.data):

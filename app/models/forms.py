@@ -31,4 +31,4 @@ class RegForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    text = TextAreaField('Digite aqui sua mensagem', validators=[DataRequired(), Length(min=1, max=500)])
+    content = StringField('Digite aqui sua mensagem', validators=[DataRequired(), Length(min=1, max=500)])

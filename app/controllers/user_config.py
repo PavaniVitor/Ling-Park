@@ -9,4 +9,4 @@ from flask_login import login_required , current_user , login_manager
 def config():
 
     user = current_user
-    return render_template('preferences.html' , user = user)
+    return render_template('preferences.html' , user = user )

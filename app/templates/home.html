@@ -1,1 +1,23 @@
-Funcionou
+{% block content %}
+<h3> Home </h3>
+
+<form action="/home" method="POST">
+<p>
+    {{form.content.label}}<br>
+    {{ form.content(size=32) }}<br>
+    <br>
+    <input type="submit" value="Enviar">
+    <br>
+<p>
+
+</form>
+<!-- inicio da lista de posts -->
+<ul>
+    {% for i in range(20) %}
+    <h3>{{ posts[i].owner.username }} : {{ posts[i].content }}</h3>
+    <h5>  {{ posts[i].date }} </h5>
+    {% endfor %}
+</ul>
+        
+
+{% endblock %}

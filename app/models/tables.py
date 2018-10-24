@@ -50,12 +50,11 @@ class Post(db.Model):
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer , db.ForeignKey('users.id'))
     owner = db.relationship('User' , foreign_keys = user_id)
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.now , nullable=False)
 
     def __init__(self, content , user_id):
         self.content = content
         self.user_id = user_id
-        self.date = datetime.utcnow
 
     def __repr__(self):
         return '<Post %r>' % self.id
