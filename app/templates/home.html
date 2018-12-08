@@ -32,6 +32,8 @@
 <form action="/echo" method="POST">
     {{form.content.label}}<br>
     {{ form.content(size=32) }}<br>
+    
+    
     <br>
     <button type="submit" class="btn btn-outline-secondary">Postar</button>
     <br>
@@ -40,15 +42,15 @@
 <ul>
     <main role="main" class="inner cover">
     {% for i in range(num) %}
-    <h3>{{ posts[i].owner.username }} : {{ posts[i].content }}</h3>
-    <h5>  {{ posts[i].date }} </h5>
+    <h3>{{ posts[i].owner.username }}: {{ posts[i].content }}</h3>
+    <h5>{{posts[i].date.hour}}h {{posts[i].date.minute}}min - {{ posts[i].date.day }}/{{posts[i].date.month}}/{{posts[i].date.year}}</h5>
     {% endfor %}
     </main>
     {% endblock %}
 </ul>
 <footer class="mastfoot mt-auto">
         <div class="inner">
-            <p class="mt-5 mb-3 text-muted">&copy; 2018-LingProg</p>            </div>
+            <p class="mt-5 mb-3 text-muted">&copy; 2018-LingProg</p></div>
       </footer>
     </div>
 
