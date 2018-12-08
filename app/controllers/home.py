@@ -26,8 +26,6 @@ def echo_post():
     form = PostForm(request.form)
     user=current_user
     if request.method == 'POST' :
-        print('alou')
-        #publica o post
         post = Post(form.content.data, user.id)
         db.session.add(post)
         db.session.commit()

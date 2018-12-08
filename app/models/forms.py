@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, TextAreaField, SelectField
 from wtforms import SubmitField
 from wtforms.validators import DataRequired , ValidationError, EqualTo, Email, Length
 from app.models.tables import User
@@ -29,6 +29,6 @@ class RegForm(FlaskForm):
         if user is not None:
             raise ValidationError('Email já registrado. Por favor, tente outro!')
 
-
 class PostForm(FlaskForm):
     content = StringField('Digite aqui sua mensagem', validators=[DataRequired(), Length(min=1, max=500)])
+    matter_field = SelectField(u'Tag:', choices=[(0, 'Comum'),(1 , 'Amarela'),(2 , 'Vermelha')])
