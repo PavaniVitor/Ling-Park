@@ -16,7 +16,8 @@ def config_password():
 
 def config_newplate():
     user = current_user
-    newcar_plate  # recebe a variavel do html
+    newcar_plate    # recebe a variavel do html
+    validate_car_plate(self, newcar_plate) 
     if user.car_plate2 is None:
         car_plate2 = update(user).where(user.car_plate2).values(newcar_plate)
     else:
@@ -25,5 +26,3 @@ def config_newplate():
         else:
             car_plate2 = update(user).where(user.car_plate2).values(newcar_plate)
     return render_template('preferences.html' , user = user )
-
-#def config_updateplate():
