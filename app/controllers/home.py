@@ -26,7 +26,7 @@ def echo_post():
     form = PostForm(request.form)
     user=current_user
     if request.method == 'POST' :
-        post = Post(form.content.data, user.id)
+        post = Post(form.content.data, user.id, form.matter_field.data)
         db.session.add(post)
         db.session.commit()
     return(redirect(url_for('home')))

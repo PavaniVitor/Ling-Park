@@ -56,7 +56,11 @@
                 {% for error in form.password2.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
-   
+                
+                {% for error in form.car_plate.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
                 {{form.car_plate.label}}<br>
                 {{form.car_plate(size = 32)}}<br>
                 <br>
