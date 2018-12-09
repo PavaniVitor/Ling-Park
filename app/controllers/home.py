@@ -26,8 +26,39 @@ def echo_post():
     form = PostForm(request.form)
     user=current_user
     if request.method == 'POST' :
+        mention_plate(form.content.data)
         post = Post(form.content.data, user.id, form.matter_field.data)
         db.session.add(post)
         db.session.commit()
     return(redirect(url_for('home')))
+
+    
+def mention_plate(message):
+	c = '@'
+	pos =[pos for pos, char in enumerate(message) if char == c]
+	if not pos:
+		return 
+
+	else:
+		for p in pos:
+			plate = message[p+1:p+8]
+			print(plate)
+
+			#ate aqui funciona
+
+			for i in range(3):
+				if plate[i].isdigit():
+					continue         
+			if not plate[3].isdigit():
+				continue
+			if not plate[4].isdigit():
+				if not plate[4].isalpha():
+					continue
+			if not plate[5].isdigit():
+				continue
+			if not plate[6].isdigit():
+				continue
+			#adicionar aqui a logica para gravar a relação dessa placa com mensagem
+			print("uma placa encontrada!") 
+
 
