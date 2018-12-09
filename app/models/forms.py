@@ -54,3 +54,8 @@ class RegForm(FlaskForm):
 class PostForm(FlaskForm):
     content = StringField('Digite aqui sua mensagem', validators=[DataRequired(), Length(min=1, max=500)])
     matter_field = SelectField(u'Tag:', choices=[(0, 'Comum'),(1 , 'Amarela'),(2 , 'Vermelha')])
+
+
+class NewPasswordForm(FlaskForm):
+    password = PasswordField('Senha', validators=[DataRequired()])
+    
