@@ -10,6 +10,8 @@ class User(db.Model):
     username = db.Column(db.String , unique = True)
     password = db.Column(db.String)
     car_plate = db.Column(db.String)
+    car_plate2 = db.Column(db.String)
+    car_plate3 = db.Column(db.String)
     email = db.Column(db.String , unique = True)
 
     @property 
