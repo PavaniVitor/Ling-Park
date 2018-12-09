@@ -75,4 +75,5 @@ class Mention(db.Model):
         self.mentioned_id = mentioned_id
         self.post_id = post_id
     
-    
+    def __repr__(self):
+        return '<Mention %r>' % self.id
