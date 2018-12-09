@@ -58,4 +58,27 @@ class PostForm(FlaskForm):
 
 class NewPasswordForm(FlaskForm):
     password = PasswordField('Senha', validators=[DataRequired()])
+
+class NewCarplateForm(FlaskForm):
+    newcar_plate = StringField('Placa do carro' , validators = [Optional()])
+    def validate_car_plate(self, newcar_plate):
+        plate = newcar_plate.data
+        if len(plate) != 7:
+            raise ValidationError('Placa invalida!')
+
+        for i in range(3):
+            if plate[i].isdigit():
+                raise ValidationError('Placa invalida!')
+                
+        if not plate[3].isdigit():
+            raise ValidationError('Placa invalida!')
+
+        if not plate[4].isdigit():
+            if not plate[4].isalpha():
+                raise ValidationError('Placa invalida!')
+        if not plate[5].isdigit():
+            raise ValidationError('Placa invalida!')
+
+        if not plate[6].isdigit():
+            raise ValidationError('Placa invalida!') 
     
