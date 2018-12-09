@@ -4,7 +4,7 @@ from app import db
 from app.models.tables import User, Post
 from flask_login import login_required , current_user , login_manager
 from sqlalchemy import update
-from app.models.forms import NewPasswordForm
+from app.models.forms import NewPasswordForm , validate_car_plate
 
 @app.route('/config')
 @login_required
@@ -17,7 +17,7 @@ def config_password():
 def config_newplate():
     user = current_user
     newcar_plate    # recebe a variavel do html
-    validate_car_plate(self, newcar_plate) 
+    validate_car_plate(self, newcar_plate): 
     if user.car_plate2 is None:
         car_plate2 = update(user).where(user.car_plate2).values(newcar_plate)
     else:
