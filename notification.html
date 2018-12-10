@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CT-Park</title>
+    <link rel="icon" href="{{url_for('static', filename = 'favicon.ico')}}">
+    <!-- Bootstrap core CSS -->
+    <link href= "{{url_for('static', filename = 'css/bootstrap.min.css' ) }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='css/cover.css' ) }}">
+
+
+  </head>
+  <body class="text-center">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+          <header class="masthead mb-auto">
+            <div class="inner">
+              <h1 class="masthead-brand">CT-Park</h1>
+              <nav class="nav nav-masthead justify-content-center">
+                  <a class="nav-link active" href="/logout">Sair</a>
+                  <a class="nav-link active" href="/preferences">Editar</a>
+                  <a class="nav-link active" href="/home">Home</a>
+                </nav>
+            </div>
+          </header>
+   <main role="main" class="inner cover">
+        <h1>Notificações</h1>
+        </main>
+      <style>
+          p.acidente {
+            border-left: 15px solid red;
+            background-color: rgb(83, 81, 81);
+            border-radius: 8px;
+          }
+          p.lotacao {
+            border-left: 15px solid yellow;
+            background-color: rgb(83, 81, 81);
+            border-radius: 8px;
+          }
+          p.comum {
+            border-left: 15px solid green;
+            background-color: rgb(83, 81, 81);
+            border-radius: 8px;
+          }
+    </style>
+{% block content %}
+<!--<form action="/echo" method="POST">
+    {{form.content.label}}<br>
+    {{ form.content(size=32) }}<br>
+    
+    <p>
+        {{form.matter_field}}
+    </p>
+    <button type="submit" class="btn btn-outline-secondary">Postar</button>
+    <br><br>
+</form>-->
+<!-- inicio da lista de posts -->
+<ul>
+    <main role="main" class="inner cover">
+      {% for i in range(num) %}
+      {%if posts[i].matter == 1%}
+      <p class='lotacao'>{{ posts[i].owner.username }}: {{ posts[i].content }}<br>
+        {{posts[i].date.hour}}h {{posts[i].date.minute}}min - {{ posts[i].date.day }}/{{posts[i].date.month}}/{{posts[i].date.year}}</p>
+      {%elif posts[i].matter == 2%}
+       <p class='acidente'> {{ posts[i].owner.username }}: {{ posts[i].content }}<br>
+        {{posts[i].date.hour}}h {{posts[i].date.minute}}min - {{ posts[i].date.day }}/{{posts[i].date.month}}/{{posts[i].date.year}}</p>
+      {%else%}
+        <p class = 'comum'>{{ posts[i].owner.username }}: {{ posts[i].content }}<br>
+        {{posts[i].date.hour}}h {{posts[i].date.minute}}min - {{ posts[i].date.day }}/{{posts[i].date.month}}/{{posts[i].date.year}}</p>
+      {%endif%}
+      
+      {% endfor %}
+    </main>
+    {% endblock %}
+</ul>
+<footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p class="mt-5 mb-3 text-muted">&copy; 2018-LingProg</p></div>
+      </footer>
+    </div>
+
+</body>
+</html>
