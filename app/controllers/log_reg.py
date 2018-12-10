@@ -10,12 +10,6 @@ from flask_login import login_user , current_user , logout_user
 def load_user(id):
     return User.query.get(int(id))
 
-@app.route('/users')
-def echo_view_users():
-    users = User.query.order_by(User.username).all()
-    print(users[0].username)
-    return render_template('users.html' , users = users)
-
 @app.route('/login' , methods = ['POST' , 'GET'])
 def login():
     form = LoginForm()
@@ -49,4 +43,5 @@ def cadastro():
         user = User(form.username.data, form.password.data , form.car_plate.data , form.email.data)
         db.session.add(user)
         db.session.commit()
+        return redirect(url_for('login'))
     return render_template('register.html' , form=form)
