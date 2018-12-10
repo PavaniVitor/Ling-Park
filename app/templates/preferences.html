@@ -1,7 +1,79 @@
-<h3>Meu Perfil</h3>
+<!doctype html>
 
-<p>
-    Nome de Usuario: {{ user.username }}<br>
-    Placa do Carro: {{ user.car_plate }}<br>
-    Email: {{ user.email }}<br>
-<p>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CT-Park</title>
+    <link rel="icon" href="{{url_for('static', filename = 'favicon.ico')}}">
+    <!-- Bootstrap core CSS -->
+    <link href= "{{url_for('static', filename = 'css/bootstrap.min.css' ) }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='css/cover.css' ) }}">
+
+  </head>
+  <body class="text-center">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+          <header class="masthead mb-auto">
+            <div class="inner">
+              <h1 class="masthead-brand">CT-Park</h1>
+              <nav class="nav nav-masthead justify-content-center">
+                  <a class="nav-link active" href="/home">Home</a>
+                  <a class="nav-link" href="/notification">Notificações</a>
+                  <a class="nav-link" href="/logout">Sair</a>
+
+                </nav>
+            </div>
+          </header>
+ <main role="main" class="inner cover">
+        <h1>Editar Perfil</h1>
+        </main>
+        {% block content %}
+        <form action="/preferences" method= "POST">
+            {{ form.hidden_tag() }}
+                {{ form.username.label }}<br>
+                {{ form.username(size=32) }}<br>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
+                {{ form.email.label }}<br>
+                {{ form.email(size=32) }}<br>
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
+                {{ form.password.label }}<br>
+                {{ form.password(size=32) }}<br>
+                {% for error in form.password.errors %}
+                <span style="color:red;">[{{ error }}]</span>
+                {% endfor %}
+
+                {{ form.password2.label }}<br>
+                {{ form.password2(size=32) }}<br>
+                {% for error in form.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+   
+                {{form.car_plate.label}}<br>
+                {{form.car_plate(size = 32)}}<br>
+                
+                {{form.car_plate.label}}<br>
+                {{form.car_plate(size = 32)}}<br><br>
+                <button type="submit" class="btn btn-outline-secondary">Alterar</button>
+            </form>
+            {% endblock %}
+            <br><br>
+<p class="mt-5 mb-3 text-muted">&copy; 2018-LingProg</p>
+ <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p></p>
+        </div>
+      </footer>
+    </div>
+
+</body>
+</html>
