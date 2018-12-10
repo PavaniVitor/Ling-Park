@@ -10,7 +10,6 @@ from flask_login import login_user, current_user, logout_user, login_required
 @login_required
 def mentions():
     user = current_user
-    print(current_user.id)
     _mentions = Mention.query.filter_by(mentioned_id = current_user.id)
 
     lista_posts = []
