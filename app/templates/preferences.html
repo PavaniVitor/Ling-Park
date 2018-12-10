@@ -42,12 +42,7 @@
                 {% for error in form.password.errors %}
                 <span style="color:red;">[{{ error }}]</span>
                 {% endfor %}
-                <br></br>
-                {{ form.new_password.label }}<br>
-                {{ form.new_password(size=32) }}<br>
-                {% for error in form.new_password.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
+           
                 
                 {%if user.car_plate is not none%}
                 </p>Placa do Primeiro Veiculo:{{user.car_plate}}</p>

@@ -1,27 +1,27 @@
-from flask import render_template, request , redirect , url_for
+from flask import render_template, request , redirect , url_for , flash
 from app import app
 from app import db
 from app.models.tables import User, Post
 from flask_login import login_required , current_user , login_manager
 from sqlalchemy import update
-from app.models.forms import NewPasswordForm , NewCarplateForm
+from app.models.forms import PreferencesForm
+from werkzeug.security import generate_password_hash , check_password_hash
 
-@app.route('/preferences')
+@app.route('/preferences' , methods = ['GET' , 'POST'])
 @login_required
 def config_password():
     user = current_user
-    newpassword = NewPasswordForm
-    user.password = update(User).where(User.password).values(newpassword)  
-    return render_template('preferences.html' , user = user )
+    form = PreferencesForm(request.form)
 
-def config_newplate():
-    user = current_user
-    newcar_plate = NewCarplateForm
-    if user.car_plate2 is None:
-        car_plate2 = update(user).where(user.car_plate2).values(newcar_plate)
-    else:
-        if user.car_plate3 is None:
-            car_plate3 = update(user).where(user.car_plate3).values(newcar_plate)
-        else:
-            car_plate2 = update(user).where(user.car_plate2).values(newcar_plate)
-    return render_template('preferences.html' , user = user )
+    user_db = User.query.filter_by(id = user.id).first()
+    if request.method == 'POST':
+        if user.check_password(form.password.data):
+            #do
+            if form.car_plate.data != '':
+                user_db.car_plate = form.car_plate.data
+            if form.car_plate2.data != '':
+                user_db.car_plate2 = form.car_plate2.data
+            db.session.commit()
+                
+
+    return render_template('preferences.html' , user = user , form=form)
