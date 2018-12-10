@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash , check_password_hash
 
 @app.route('/preferences' , methods = ['GET' , 'POST'])
 @login_required
-def config_password():
+def config_carplate():
     user = current_user
     form = PreferencesForm(request.form)
 
