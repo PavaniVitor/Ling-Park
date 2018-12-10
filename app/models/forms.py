@@ -55,14 +55,15 @@ class PostForm(FlaskForm):
     content = StringField('Digite aqui sua mensagem', validators=[DataRequired(), Length(min=1, max=500)])
     matter_field = SelectField(u'Tag:', choices=[(0, 'Comum'),(1 , 'Amarela'),(2 , 'Vermelha')])
     
+class PreferencesForm(FlaskForm):
+    car_plate = StringField('Placa do 1º carro:' , validators = [Optional()])
+    car_plate2 = StringField('Placa do 2º carro' , validators = [Optional()])
+    password = PasswordField('Senha:', validators=[DataRequired()])
+    new_password = PasswordField('Nova Senha:', validators=[Optional()])
 
-class NewPasswordForm(FlaskForm):
-    password = PasswordField('Senha', validators=[DataRequired()])
 
-class NewCarplateForm(FlaskForm):
-    newcar_plate = StringField('Placa do carro' , validators = [Optional()])
     
-    def validate_newcar_plate(self, newcar_plate):
+    def validate_car_plate(self, newcar_plate):
         plate = newcar_plate.data
         if len(plate) != 7:
             raise ValidationError('Placa invalida!')
@@ -82,4 +83,26 @@ class NewCarplateForm(FlaskForm):
 
         if not plate[6].isdigit():
             raise ValidationError('Placa invalida!') 
+    
+    def validate_car_plate2(self, newcar_plate):
+        plate = newcar_plate.data
+        if len(plate) != 7:
+            raise ValidationError('Placa invalida!')
+
+        for i in range(3):
+            if plate[i].isdigit():
+                raise ValidationError('Placa invalida!')
+                
+        if not plate[3].isdigit():
+            raise ValidationError('Placa invalida!')
+
+        if not plate[4].isdigit():
+            if not plate[4].isalpha():
+                raise ValidationError('Placa invalida!')
+        if not plate[5].isdigit():
+            raise ValidationError('Placa invalida!')
+
+        if not plate[6].isdigit():
+            raise ValidationError('Placa invalida!') 
+    
     

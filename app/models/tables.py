@@ -11,7 +11,6 @@ class User(db.Model):
     password = db.Column(db.String)
     car_plate = db.Column(db.String)
     car_plate2 = db.Column(db.String)
-    car_plate3 = db.Column(db.String)
     email = db.Column(db.String , unique = True)
 
     @property 

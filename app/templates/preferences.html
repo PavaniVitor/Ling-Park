@@ -34,35 +34,37 @@
         {% block content %}
         <form action="/preferences" method= "POST">
             {{ form.hidden_tag() }}
-                {{ form.username.label }}<br>
-                {{ form.username(size=32) }}<br>
-                {% for error in form.username.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-
-                {{ form.email.label }}<br>
-                {{ form.email(size=32) }}<br>
-                {% for error in form.email.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
+                <p>Usuário: {{user.username}}</p>
+                <p>Preencha sua senha e os campos que deseja alterar!</p>
 
                 {{ form.password.label }}<br>
                 {{ form.password(size=32) }}<br>
                 {% for error in form.password.errors %}
                 <span style="color:red;">[{{ error }}]</span>
                 {% endfor %}
-
-                {{ form.password2.label }}<br>
-                {{ form.password2(size=32) }}<br>
-                {% for error in form.password2.errors %}
+                <br></br>
+                {{ form.new_password.label }}<br>
+                {{ form.new_password(size=32) }}<br>
+                {% for error in form.new_password.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
-   
+                
+                {%if user.car_plate is not none%}
+                </p>Placa do Primeiro Veiculo:{{user.car_plate}}</p>
+                {%endif%}
+                
                 {{form.car_plate.label}}<br>
                 {{form.car_plate(size = 32)}}<br>
                 
-                {{form.car_plate.label}}<br>
-                {{form.car_plate(size = 32)}}<br><br>
+                {%if user.car_plate2 is not none%}                
+                <p>Placa do Segundo Veiculo:{{user.car_plate2}}</p>
+                {%else%}
+                <br></br>
+                {%endif%}
+            
+                {{form.car_plate2.label}}<br>
+                {{form.car_plate2(size = 32)}}<br><br>
+
                 <button type="submit" class="btn btn-outline-secondary">Alterar</button>
             </form>
             {% endblock %}
