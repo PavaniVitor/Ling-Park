@@ -54,14 +54,15 @@ class RegForm(FlaskForm):
 class PostForm(FlaskForm):
     content = StringField('Digite aqui sua mensagem', validators=[DataRequired(), Length(min=1, max=500)])
     matter_field = SelectField(u'Tag:', choices=[(0, 'Comum'),(1 , 'Amarela'),(2 , 'Vermelha')])
-
+    
 
 class NewPasswordForm(FlaskForm):
     password = PasswordField('Senha', validators=[DataRequired()])
 
 class NewCarplateForm(FlaskForm):
     newcar_plate = StringField('Placa do carro' , validators = [Optional()])
-    def validate_car_plate(self, newcar_plate):
+    
+    def validate_newcar_plate(self, newcar_plate):
         plate = newcar_plate.data
         if len(plate) != 7:
             raise ValidationError('Placa invalida!')

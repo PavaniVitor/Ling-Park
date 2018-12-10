@@ -4,14 +4,14 @@ from app import db
 from app.models.tables import User, Post
 from flask_login import login_required , current_user , login_manager
 from sqlalchemy import update
-from app.models.forms import NewPasswordForm , validate_car_plate , NewCarplateForm
+from app.models.forms import NewPasswordForm , NewCarplateForm
 
-@app.route('/config')
+@app.route('/preferences')
 @login_required
 def config_password():
     user = current_user
     newpassword = NewPasswordForm
-    user.password = update(user).where(user.password).values(newpassword)  
+    user.password = update(User).where(User.password).values(newpassword)  
     return render_template('preferences.html' , user = user )
 
 def config_newplate():
