@@ -48,7 +48,7 @@
           }
     </style>
 {% block content %}
-<form action="/echo" method="POST">
+<form action="/echo" method="POST" autocomplete="off">
     {{form.content.label}}<br>
     {{ form.content(size=32) }}<br>
     
